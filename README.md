@@ -1,3 +1,14 @@
+# download lewat git utowo zip
+# npm install
+# Sesuaikan env / chatgpt "Gimana cara daftar supabase dan mendapatkan supabase url, publishable api key dan service role key"
+# uwis enek ui dingge ngetest endpoint, students ijik invalid token karo kurang api users, sirahku mumet
+# npx prisma generate
+# npx prisma db push
+# npm run dev
+# https://claude.ai/share/21ea6dc5-975f-4616-94fa-4fa3accb9bfe
+# https://claude.ai/share/c2cdefe6-51e4-46b7-9710-54710c1bba44
+# https://claude.ai/share/f87c6d5b-38dc-466b-8526-f6695c28fe8e
+# https://chatgpt.com/share/69506658-2438-8006-bed5-d039ba74f8ad
 # 📚 Sistem Catatan Akademik REST API
 
 ## UAS Pemrograman API - Teknik Informatika UNISBA Blitar
