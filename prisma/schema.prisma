@@ -1,0 +1,112 @@
+// This is your Prisma schema file for Supabase PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Enum for user roles
+enum Role {
+  ADMIN
+  USER
+}
+
+// Users table - for authentication and authorization
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String   // Hashed with bcrypt
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  courses  Course[]
+  students Student[]
+
+  @@map("users")
+}
+
+// Students table - main entity for academic records
+model Student {
+  id             String   @id @default(uuid())
+  nim            String   @unique // Nomor Induk Mahasiswa
+  name           String
+  major          String   // Program Studi (e.g., Teknik Informatika)
+  semester       Int      // Current semester
+  gpa            Float?   // Grade Point Average
+  phone          String?
+  address        String?
+  enrollmentYear Int      // Tahun masuk
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Foreign Key
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade)
+
+  // Relations
+  enrollments Enrollment[]
+
+  @@index([nim])
+  @@index([createdById])
+  @@map("students")
+}
+
+// Courses table - mata kuliah
+model Course {
+  id          String   @id @default(uuid())
+  code        String   @unique // Kode Mata Kuliah (e.g., IF101)
+  name        String   // Nama Mata Kuliah
+  credits     Int      // SKS (Satuan Kredit Semester)
+  semester    Int      // Semester recommended (1-8)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Foreign Key
+  instructorId String
+  instructor   User   @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+
+  // Relations
+  enrollments Enrollment[]
+
+  @@index([code])
+  @@index([instructorId])
+  @@map("courses")
+}
+
+// Enrollment status enum
+enum EnrollmentStatus {
+  ACTIVE    // Sedang mengambil
+  COMPLETED // Sudah selesai
+  DROPPED   // Mengundurkan diri
+}
+
+// Enrollments table - junction table for students and courses
+model Enrollment {
+  id        String           @id @default(uuid())
+  grade     String?          // Nilai (A, B+, B, C+, C, D, E)
+  status    EnrollmentStatus @default(ACTIVE)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // Foreign Keys
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Ensure a student can only enroll once in a course
+  @@unique([studentId, courseId])
+  @@index([studentId])
+  @@index([courseId])
+  @@map("enrollments")
+}
