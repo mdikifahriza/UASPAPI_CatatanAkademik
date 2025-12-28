@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { verifyToken, extractToken } from './lib/auth'
 
 const requestCounts = new Map<string, { count: number; resetTime: number }>()
-
+export const runtime = 'nodejs';
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for')
   if (forwarded) {

@@ -4,6 +4,7 @@ import { hashPassword } from '../../../../lib/auth'
 import { successResponse, errorResponse, validationError } from '../../../../lib/response'
 import { z } from 'zod'
 
+export const runtime = 'nodejs';
 // Validation schema
 const registerSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),

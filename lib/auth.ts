@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs'
-import jwt, { type Secret, type SignOptions } from 'jsonwebtoken'
+import bcrypt from 'bcryptjs';
+import jwt, { type Secret, type SignOptions } from 'jsonwebtoken';
 
 const JWT_SECRET: Secret =
   process.env.JWT_SECRET ?? 'Flsb9WO9lsGptYz5LgzH0ffMKVnrpbdXOt6C9rIZvxA='
@@ -40,16 +40,18 @@ export function generateRefreshToken(payload: TokenPayload): string {
 export function verifyToken(token: string): TokenPayload | null {
   try {
     return jwt.verify(token, JWT_SECRET) as TokenPayload
-  } catch {
-    return null
+  } catch(e) {
+    console.error(e);
+    return null;
   }
 }
 
 export function verifyRefreshToken(token: string): TokenPayload | null {
   try {
     return jwt.verify(token, REFRESH_TOKEN_SECRET) as TokenPayload
-  } catch {
-    return null
+  } catch(e) {
+    console.error(e);
+    return null;
   }
 }
 

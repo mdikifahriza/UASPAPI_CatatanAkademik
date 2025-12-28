@@ -4,6 +4,7 @@ import { comparePassword, generateToken, generateRefreshToken } from '../../../.
 import { successResponse, errorResponse, validationError } from '../../../../lib/response'
 import { z } from 'zod'
 
+export const runtime = 'nodejs';
 const loginSchema = z.object({
   email: z.string().email('Invalid email format'),
   password: z.string().min(1, 'Password is required'),
