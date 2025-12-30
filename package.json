@@ -2,16 +2,18 @@
   "name": "academic-system-api",
   "version": "1.0.0",
   "description": "Sistem Catatan Akademik REST API - UAS Pemrograman API",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "prisma:generate": "prisma generate",
-    "prisma:push": "prisma db push",
-    "prisma:studio": "prisma studio",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:generate": "npx prisma generate",
+    "prisma:push": "npx prisma db push",
+    "prisma:studio": "npx prisma studio",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:seed": "node prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",
@@ -23,11 +25,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
+    "dotenv": "^17.2.3",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
     "prisma": "^6.1.0",
