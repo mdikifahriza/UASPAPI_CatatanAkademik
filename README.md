@@ -1,7 +1,7 @@
 # download lewat git utowo zip
 # npm install
 # Sesuaikan env / chatgpt "Gimana cara daftar supabase dan mendapatkan supabase url, publishable api key dan service role key"
-# uwis enek ui dingge ngetest endpoint, students ijik invalid token karo kurang api users, sirahku mumet
+
 # npx prisma generate
 # npx prisma db push
 # npm run dev
